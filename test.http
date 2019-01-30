@@ -1,0 +1,14 @@
+@baseUrl=http://localhost:1337/parse
+@appId=appId
+@restApiKey=restApiKey
+@masterKey=masterKey
+@webhookKey=webhookKey
+POST {{baseUrl}}/functions/ping
+X-Parse-Application-Id: {{appId}}
+X-Parse-REST-API-Key: {{restApiKey}}
+X-Parse-Webhook-Key: {{webhookKey}}
+Content-Type: application/json
+
+{
+  "hi":"bye"
+}

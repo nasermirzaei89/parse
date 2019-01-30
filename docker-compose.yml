@@ -1,8 +1,12 @@
 version: "3"
 
 services:
+  # Database
+
   mongo:
     image: mongo
+
+  # Parse
 
   server:
     image: parseplatform/parse-server
@@ -36,7 +40,7 @@ services:
       PARSE_SERVER_CLIENT_KEY: clientKey
       PARSE_SERVER_JAVASCRIPT_KEY: javascriptKey
       PARSE_SERVER_DOT_NET_KEY: dotNetKey
-      PARSE_SERVER_REST_API_KEY: restAPIKey
+      PARSE_SERVER_REST_API_KEY: restApiKey
       PARSE_SERVER_READ_ONLY_MASTER_KEY: readOnlyMasterKey
       PARSE_SERVER_WEBHOOK_KEY: webhookKey
       PARSE_SERVER_FILE_KEY: fileKey
