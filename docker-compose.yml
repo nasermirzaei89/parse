@@ -6,16 +6,21 @@ services:
   mongo:
     image: mongo
 
+  #  redis:
+  #    image: redis
+
   # Parse
 
   server:
     image: parseplatform/parse-server
     ports:
-    - 1337:1337
+      - 1337:1337
     depends_on:
-    - mongo
+      - mongo
+      - redis
     links:
-    - mongo
+      - mongo
+      - redis
     environment:
       PARSE_SERVER_APPLICATION_ID: appId
       PARSE_SERVER_MASTER_KEY: masterKey
@@ -29,7 +34,7 @@ services:
       # PARSE_SERVER_LOGGER_ADAPTER='loggerAdapter'
       # JSON_LOGS='jsonLogs'
       # PARSE_SERVER_LOGS_FOLDER='logsFolder'
-      # VERBOSE='verbose'
+      # VERBOSE='verb ose'
       # PARSE_SERVER_LOG_LEVEL='logLevel'
       # SILENT='silent'
       PARSE_SERVER_DATABASE_URI: mongodb://mongo/myApp
@@ -75,15 +80,16 @@ services:
       PARSE_SERVER_MOUNT_PATH: /parse
       # PARSE_SERVER_CLUSTER='cluster'
       # PARSE_SERVER_MIDDLEWARE='middleware'
-      # PARSE_SERVER_START_LIVE_QUERY_SERVER='startLiveQueryServer'
-      # PARSE_SERVER_LIVE_QUERY_SERVER_OPTIONS='liveQueryServerOptions'
+      PARSE_SERVER_START_LIVE_QUERY_SERVER: 1
+      PARSE_SERVER_LIVE_QUERY: '{"classNames":["Message"]}'
+#      PARSE_SERVER_LIVE_QUERY_SERVER_OPTIONS: '{"classNames":["Message"], "redisURL": "redis://redis:6379"}'
 
   dashboard:
     image: parseplatform/parse-dashboard
     ports:
-    - 4040:4040
+      - 4040:4040
     depends_on:
-    - server
+      - server
     environment:
       HOST: '0.0.0.0'
       PORT: 4040
@@ -92,7 +98,7 @@ services:
       PARSE_DASHBOARD_SERVER_URL: 'http://localhost:1337/parse'
       PARSE_DASHBOARD_MASTER_KEY: masterKey
       PARSE_DASHBOARD_APP_ID: appId
-      PARSE_DASHBOARD_APP_NAME: 'My Application'
+      PARSE_DASHBOARD_APP_NAME: 'Default'
       PARSE_DASHBOARD_USER_ID: 'admin'
       PARSE_DASHBOARD_USER_PASSWORD: 'admin'
       # PARSE_DASHBOARD_SSL_KEY: "sslKey"
