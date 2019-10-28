@@ -1,0 +1,11 @@
+{
+  "name": "parse",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "parse": "^2.8.0"
+  }
+}

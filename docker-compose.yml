@@ -6,8 +6,8 @@ services:
   mongo:
     image: mongo
 
-  #  redis:
-  #    image: redis
+  redis:
+    image: redis
 
   # Parse
 
@@ -17,10 +17,10 @@ services:
       - 1337:1337
     depends_on:
       - mongo
-#      - redis
+      - redis
     links:
       - mongo
-#      - redis
+      - redis
     environment:
       PARSE_SERVER_APPLICATION_ID: appId
       PARSE_SERVER_MASTER_KEY: masterKey
@@ -34,7 +34,7 @@ services:
       # PARSE_SERVER_LOGGER_ADAPTER='loggerAdapter'
       # JSON_LOGS='jsonLogs'
       # PARSE_SERVER_LOGS_FOLDER='logsFolder'
-      # VERBOSE='verb ose'
+      #VERBOSE: 1
       # PARSE_SERVER_LOG_LEVEL='logLevel'
       # SILENT='silent'
       PARSE_SERVER_DATABASE_URI: mongodb://mongo/myApp
@@ -64,7 +64,6 @@ services:
       # PARSE_SERVER_EMAIL_ADAPTER='emailAdapter'
       # PARSE_PUBLIC_SERVER_URL='publicServerURL'
       # PARSE_SERVER_CUSTOM_PAGES='customPages'
-      # PARSE_SERVER_LIVE_QUERY='liveQuery'
       # PARSE_SERVER_SESSION_LENGTH='sessionLength'
       # PARSE_SERVER_MAX_LIMIT='maxLimit'
       PARSE_SERVER_EXPIRE_INACTIVE_SESSIONS: 1
@@ -81,8 +80,15 @@ services:
       # PARSE_SERVER_CLUSTER='cluster'
       # PARSE_SERVER_MIDDLEWARE='middleware'
       PARSE_SERVER_START_LIVE_QUERY_SERVER: 1
-      PARSE_SERVER_LIVE_QUERY: '{"classNames":["Message"]}'
-#      PARSE_SERVER_LIVE_QUERY_SERVER_OPTIONS: '{"classNames":["Message"], "redisURL": "redis://redis:6379"}'
+      PARSE_SERVER_LIVE_QUERY: |-
+        {
+          "classNames": ["Message"],
+          "redisURL": "redis://redis"
+        }
+      PARSE_SERVER_LIVE_QUERY_SERVER_OPTIONS: |-
+        {
+          "redisURL": "redis://redis"
+        }
 
   dashboard:
     image: parseplatform/parse-dashboard
