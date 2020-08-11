@@ -6,6 +6,6 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "parse": "^2.8.0"
+    "parse": "^2.15.0"
   }
 }
